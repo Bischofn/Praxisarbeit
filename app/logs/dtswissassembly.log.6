@@ -1,0 +1,124 @@
+2022-08-29 13:11:12,643 ERROR: Exception on /login [POST] [in /usr/local/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1808, in _execute_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: user
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/app/app/routes.py", line 50, in login
+    user = User.query.filter_by(username=form.username.data).first()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2810, in first
+    return self.limit(1)._iter().first()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2894, in _iter
+    result = self.session.execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1692, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1620, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 325, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1487, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1851, in _execute_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2032, in _handle_dbapi_exception
+    util.raise_(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1808, in _execute_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user
+[SQL: SELECT user.id AS user_id, user.username AS user_username, user.email AS user_email, user.password_hash AS user_password_hash, user.about_me AS user_about_me, user.last_seen AS user_last_seen, user.token AS user_token, user.token_expiration AS user_token_expiration 
+FROM user 
+WHERE user.username = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('Admin', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2022-08-29 13:14:23,239 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:14:23,246 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:14:23,249 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:14:23,299 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:16:43,212 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:16:43,380 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:16:43,463 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:16:43,532 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:17:21,136 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:17:21,288 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:17:21,439 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:17:21,450 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:22:29,137 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:22:29,145 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:22:29,151 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:22:29,153 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:22:48,146 ERROR: Exception on /login [POST] [in /usr/local/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1808, in _execute_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlite3.OperationalError: no such table: user
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/app/app/routes.py", line 50, in login
+    user = User.query.filter_by(username=form.username.data).first()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2810, in first
+    return self.limit(1)._iter().first()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2894, in _iter
+    result = self.session.execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1692, in execute
+    result = conn._execute_20(statement, params or {}, execution_options)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1620, in _execute_20
+    return meth(self, args_10style, kwargs_10style, execution_options)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 325, in _execute_on_connection
+    return connection._execute_clauseelement(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1487, in _execute_clauseelement
+    ret = self._execute_context(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1851, in _execute_context
+    self._handle_dbapi_exception(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2032, in _handle_dbapi_exception
+    util.raise_(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1808, in _execute_context
+    self.dialect.do_execute(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user
+[SQL: SELECT user.id AS user_id, user.username AS user_username, user.email AS user_email, user.password_hash AS user_password_hash, user.about_me AS user_about_me, user.last_seen AS user_last_seen, user.token AS user_token, user.token_expiration AS user_token_expiration 
+FROM user 
+WHERE user.username = ?
+ LIMIT ? OFFSET ?]
+[parameters: ('Admin', 1, 0)]
+(Background on this error at: https://sqlalche.me/e/14/e3q8)
+2022-08-29 13:27:16,579 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:27:16,586 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:27:16,600 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:27:16,645 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:42:27,372 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:42:27,425 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:42:27,484 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-08-29 13:42:27,507 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]

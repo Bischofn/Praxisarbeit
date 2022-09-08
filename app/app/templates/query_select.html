@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <h1>Please Select User and Timerange</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+         <p>
+            {{ form.users.label }}<br>
+            {{ form.users }}<br>
+            {% for error in form.users.errors %}
+            <span style="color: red;">[{{ error }}]</span>
+            {% endfor %}
+            <h5>If no Timerange is selected all entries will be shown</h5>
+            {{ form.date }}<br>
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}
