@@ -78,3 +78,53 @@ UnboundLocalError: local variable 'url_for' referenced before assignment
 2022-09-08 14:48:08,947 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
 2022-09-08 14:48:09,044 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
 2022-09-08 14:48:09,109 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:51:23,934 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:51:23,929 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:51:23,939 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:51:23,947 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:52:55,871 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:52:55,875 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:52:55,886 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:52:55,883 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:53:02,808 ERROR: Exception on /reset_password_request [POST] [in /usr/local/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/app/app/routes.py", line 184, in reset_password_request
+    send_password_reset_email(user)
+  File "/app/app/email.py", line 15, in send_password_reset_email
+    url_for=url_for.replace("flask:5000","http://152.67.72.61")
+UnboundLocalError: local variable 'url_for' referenced before assignment
+2022-09-08 15:53:57,249 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:53:57,286 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:53:57,277 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:53:57,330 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:54:00,923 ERROR: Exception on /reset_password_request [POST] [in /usr/local/lib/python3.9/site-packages/flask/app.py:1457]
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
+  File "/app/app/routes.py", line 184, in reset_password_request
+    send_password_reset_email(user)
+  File "/app/app/email.py", line 15, in send_password_reset_email
+    url_for = url_for.replace("flask:5000","http://152.67.72.61")
+UnboundLocalError: local variable 'url_for' referenced before assignment
+2022-09-08 15:57:38,627 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:57:38,688 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:57:38,778 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 15:57:38,899 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-09 05:52:20,423 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-09 05:52:20,421 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-09 05:52:20,596 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-09 05:52:20,607 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
