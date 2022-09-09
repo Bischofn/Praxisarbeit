@@ -1,10 +1,26 @@
-2022-08-29 13:11:12,643 ERROR: Exception on /login [POST] [in /usr/local/lib/python3.9/site-packages/flask/app.py:1457]
+2022-09-07 14:42:26,092 ERROR: Exception on /register [POST] [in /usr/local/lib/python3.9/site-packages/flask/app.py:1457]
 Traceback (most recent call last):
   File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1808, in _execute_context
     self.dialect.do_execute(
   File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
     cursor.execute(statement, parameters)
-sqlite3.OperationalError: no such table: user
+  File "/usr/local/lib/python3.9/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+  File "/usr/local/lib/python3.9/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+  File "/usr/local/lib/python3.9/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/usr/local/lib/python3.9/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+  File "/usr/local/lib/python3.9/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "/usr/local/lib/python3.9/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "/usr/local/lib/python3.9/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/usr/local/lib/python3.9/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+pymysql.err.IntegrityError: (1062, "Duplicate entry 'nbischof@dtswiss.com' for key 'ix_user_email'")
 
 The above exception was the direct cause of the following exception:
 
@@ -17,14 +33,33 @@ Traceback (most recent call last):
     rv = self.dispatch_request()
   File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
     return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
-  File "/app/app/routes.py", line 50, in login
-    user = User.query.filter_by(username=form.username.data).first()
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2810, in first
-    return self.limit(1)._iter().first()
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2894, in _iter
-    result = self.session.execute(
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1692, in execute
-    result = conn._execute_20(statement, params or {}, execution_options)
+  File "/app/app/routes.py", line 82, in register
+    db.session.commit()
+  File "<string>", line 2, in commit
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1431, in commit
+    self._transaction.commit(_to_root=self.future)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 829, in commit
+    self._prepare_impl()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 808, in _prepare_impl
+    self.session.flush()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3363, in flush
+    self._flush(objects)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3503, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 70, in __exit__
+    compat.raise_(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
+    raise exception
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 3463, in _flush
+    flush_context.execute()
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 456, in execute
+    rec.execute(self)
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py", line 630, in execute
+    util.preloaded.orm_persistence.save_obj(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 244, in save_obj
+    _emit_insert_statements(
+  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py", line 1237, in _emit_insert_statements
+    result = connection._execute_20(
   File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1620, in _execute_20
     return meth(self, args_10style, kwargs_10style, execution_options)
   File "/usr/local/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 325, in _execute_on_connection
@@ -41,84 +76,62 @@ Traceback (most recent call last):
     self.dialect.do_execute(
   File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
     cursor.execute(statement, parameters)
-sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user
-[SQL: SELECT user.id AS user_id, user.username AS user_username, user.email AS user_email, user.password_hash AS user_password_hash, user.about_me AS user_about_me, user.last_seen AS user_last_seen, user.token AS user_token, user.token_expiration AS user_token_expiration 
-FROM user 
-WHERE user.username = ?
- LIMIT ? OFFSET ?]
-[parameters: ('Admin', 1, 0)]
-(Background on this error at: https://sqlalche.me/e/14/e3q8)
-2022-08-29 13:14:23,239 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:14:23,246 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:14:23,249 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:14:23,299 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:16:43,212 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:16:43,380 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:16:43,463 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:16:43,532 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:17:21,136 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:17:21,288 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:17:21,439 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:17:21,450 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:22:29,137 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:22:29,145 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:22:29,151 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:22:29,153 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:22:48,146 ERROR: Exception on /login [POST] [in /usr/local/lib/python3.9/site-packages/flask/app.py:1457]
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1808, in _execute_context
-    self.dialect.do_execute(
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
-    cursor.execute(statement, parameters)
-sqlite3.OperationalError: no such table: user
-
-The above exception was the direct cause of the following exception:
-
-Traceback (most recent call last):
-  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 2073, in wsgi_app
-    response = self.full_dispatch_request()
-  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1518, in full_dispatch_request
-    rv = self.handle_user_exception(e)
-  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1516, in full_dispatch_request
-    rv = self.dispatch_request()
-  File "/usr/local/lib/python3.9/site-packages/flask/app.py", line 1502, in dispatch_request
-    return self.ensure_sync(self.view_functions[rule.endpoint])(**req.view_args)
-  File "/app/app/routes.py", line 50, in login
-    user = User.query.filter_by(username=form.username.data).first()
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2810, in first
-    return self.limit(1)._iter().first()
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/query.py", line 2894, in _iter
-    result = self.session.execute(
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/orm/session.py", line 1692, in execute
-    result = conn._execute_20(statement, params or {}, execution_options)
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1620, in _execute_20
-    return meth(self, args_10style, kwargs_10style, execution_options)
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/sql/elements.py", line 325, in _execute_on_connection
-    return connection._execute_clauseelement(
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1487, in _execute_clauseelement
-    ret = self._execute_context(
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1851, in _execute_context
-    self._handle_dbapi_exception(
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2032, in _handle_dbapi_exception
-    util.raise_(
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 207, in raise_
-    raise exception
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1808, in _execute_context
-    self.dialect.do_execute(
-  File "/usr/local/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 732, in do_execute
-    cursor.execute(statement, parameters)
-sqlalchemy.exc.OperationalError: (sqlite3.OperationalError) no such table: user
-[SQL: SELECT user.id AS user_id, user.username AS user_username, user.email AS user_email, user.password_hash AS user_password_hash, user.about_me AS user_about_me, user.last_seen AS user_last_seen, user.token AS user_token, user.token_expiration AS user_token_expiration 
-FROM user 
-WHERE user.username = ?
- LIMIT ? OFFSET ?]
-[parameters: ('Admin', 1, 0)]
-(Background on this error at: https://sqlalche.me/e/14/e3q8)
-2022-08-29 13:27:16,579 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:27:16,586 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:27:16,600 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:27:16,645 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:42:27,372 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:42:27,425 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:42:27,484 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
-2022-08-29 13:42:27,507 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+  File "/usr/local/lib/python3.9/site-packages/pymysql/cursors.py", line 148, in execute
+    result = self._query(query)
+  File "/usr/local/lib/python3.9/site-packages/pymysql/cursors.py", line 310, in _query
+    conn.query(q)
+  File "/usr/local/lib/python3.9/site-packages/pymysql/connections.py", line 548, in query
+    self._affected_rows = self._read_query_result(unbuffered=unbuffered)
+  File "/usr/local/lib/python3.9/site-packages/pymysql/connections.py", line 775, in _read_query_result
+    result.read()
+  File "/usr/local/lib/python3.9/site-packages/pymysql/connections.py", line 1156, in read
+    first_packet = self.connection._read_packet()
+  File "/usr/local/lib/python3.9/site-packages/pymysql/connections.py", line 725, in _read_packet
+    packet.raise_for_error()
+  File "/usr/local/lib/python3.9/site-packages/pymysql/protocol.py", line 221, in raise_for_error
+    err.raise_mysql_exception(self._data)
+  File "/usr/local/lib/python3.9/site-packages/pymysql/err.py", line 143, in raise_mysql_exception
+    raise errorclass(errno, errval)
+sqlalchemy.exc.IntegrityError: (pymysql.err.IntegrityError) (1062, "Duplicate entry 'nbischof@dtswiss.com' for key 'ix_user_email'")
+[SQL: INSERT INTO user (username, email, password_hash, about_me, last_seen, token, token_expiration) VALUES (%(username)s, %(email)s, %(password_hash)s, %(about_me)s, %(last_seen)s, %(token)s, %(token_expiration)s)]
+[parameters: {'username': 'Niklaus', 'email': 'nbischof@dtswiss.com', 'password_hash': 'pbkdf2:sha256:260000$XET0nKSCJxcRuXa7$a764eabd236057e6d9ccb9e0d33792e1dbe0d0e9551d0799c4907598f1f286a7', 'about_me': None, 'last_seen': datetime.datetime(2022, 9, 7, 14, 42, 26, 91785), 'token': None, 'token_expiration': None}]
+(Background on this error at: https://sqlalche.me/e/14/gkpj)
+2022-09-07 14:50:44,210 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:50:44,249 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:50:44,293 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:50:44,424 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:56:48,373 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:56:48,378 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:56:48,368 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:56:48,386 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:58:08,492 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:58:08,800 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:58:08,933 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 14:58:08,955 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 15:04:38,718 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 15:04:38,799 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 15:04:38,814 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-07 15:04:38,947 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 07:39:43,033 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 07:39:43,051 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 07:39:43,055 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 07:39:43,057 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 08:07:44,662 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 08:07:44,917 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 08:07:44,991 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 08:07:45,054 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:05:00,822 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:05:00,823 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:05:00,813 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:05:00,821 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:05:56,384 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:05:56,369 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:05:56,383 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:05:56,464 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:06:24,767 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:06:24,817 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:06:24,884 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:06:24,891 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:19:17,870 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:19:17,923 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]
+2022-09-08 11:19:18,005 INFO: DT Swiss Assembly startup [in /app/app/__init__.py:48]

@@ -67,9 +67,20 @@ class User(UserMixin, db.Model):
         return followed.union(own).order_by(Post.timestamp.desc())
     
     def get_reset_password_token(self, expires_in=600):
+        private_key = os.environ.get('SECRET_KEY')
         return jwt.encode(
             {'reset_password': self.id, 'exp': time() + expires_in},
-            app.config['SECRET_KEY'], algorithm='HS256')
+            private_key, algorithm='HS256')
+        
+    @staticmethod
+    def verify_reset_password_token(token):
+        private_key = os.environ.get('SECRET_KEY')
+        try:
+            id = jwt.decode(token, private_key,
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return User.query.get(id)
         
     def to_dict(self, include_email=False):
         data = {
@@ -104,14 +115,6 @@ class User(UserMixin, db.Model):
         if new_user and 'password' in data:
             self.set_password(data['password'])
         
-    @staticmethod
-    def verify_reset_password_token(token):
-        try:
-            id = jwt.decode(token, app.config['SECRET KEY'],
-                            algorithms=['HS256'])['reset_password']
-        except:
-            return
-        return User.query.get(id)
     
     def get_token(self, expires_in=3600):
         now = datetime.utcnow()
